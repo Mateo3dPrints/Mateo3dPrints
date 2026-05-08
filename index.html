@@ -84,12 +84,10 @@
   .product-card.hidden{display:none;}
   .product-card:hover{transform:translateY(-6px);border-color:rgba(232,25,44,.3);box-shadow:0 20px 40px rgba(0,0,0,.5);}
   
-  /* Nuevo contenedor Slider */
-  .product-img{height:180px;position:relative;overflow:hidden;background:#1a0608;}
-  .slider-track{display:flex;transition:transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);height:100%;}
+  .product-img{height:180px;position:relative;overflow:hidden;background:#1a0608;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .slider-track{display:flex;transition:transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);height:100%;width:100%;}
   .slider-track img{min-width:100%;height:100%;object-fit:cover;}
   
-  /* Flechas Slider */
   .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);color:white;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.2s;opacity:0;}
   .product-card:hover .slider-arrow{opacity:1;}
   .slider-arrow:hover{background:var(--accent);transform:translateY(-50%) scale(1.1);}
@@ -100,12 +98,60 @@
   .cat-tag{position:absolute;bottom:8px;left:10px;background:rgba(0,0,0,.6);color:#aaa;font-size:.62rem;font-weight:600;padding:2px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:1px;z-index:2;}
   
   .product-info{padding:1.1rem;}
-  .product-info h3{font-size:.95rem;font-weight:600;margin-bottom:.25rem;}
+  .product-info h3{font-size:.95rem;font-weight:600;margin-bottom:.25rem;cursor:pointer;transition:color 0.2s;}
+  .product-info h3:hover{color:var(--accent);}
   .product-info p{font-size:.75rem;color:#6a5a5c;margin-bottom:.9rem;}
   .product-footer{display:flex;align-items:center;justify-content:space-between;}
   .price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);}
   .btn-add{background:rgba(232,25,44,.1);border:1px solid rgba(232,25,44,.3);color:var(--accent);padding:.35rem .85rem;border-radius:50px;font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
   .btn-add:hover{background:var(--accent);color:#fff;}
+
+  /* MODAL ESTILOS */
+  .modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background: rgba(8, 3, 4, 0.9);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-content {
+    background: var(--card);
+    border: 1px solid rgba(232,25,44,0.3);
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(232,25,44,0.15);
+    animation: fadeUp 0.4s ease-out;
+  }
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.2s;
+  }
+  .close-modal:hover { opacity: 1; transform: scale(1.1); }
+  .modal-details h2 { font-family: 'Syne', sans-serif; color: var(--accent); margin-bottom: 1.5rem; font-size: 1.8rem; }
+  .modal-details ul { list-style: none; }
+  .modal-details li { 
+    margin-bottom: 1rem; 
+    padding-bottom: 8px; 
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  .modal-details strong { color: #fff; font-weight: 500; }
+  .modal-details span { color: #8a7a7c; }
 
   /* CÓMO FUNCIONA */
   .how-bg{background:var(--gray);}
@@ -170,6 +216,13 @@
 </style>
 </head>
 <body>
+
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
 <a href="https://wa.me/5491130126909" target="_blank" class="wa-float" title="Escribinos por WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -253,7 +306,7 @@
       <div class="cat-tag">Hogar</div>
     </div>
     <div class="product-info">
-      <h3>Lámpara luna</h3>
+      <h3 onclick="openSpecs('Lámpara luna')">Lámpara luna ℹ️</h3>
       <p>Con LED incluido, efecto 3D</p>
       <div class="product-footer">
         <span class="price">$9.500</span>
@@ -266,16 +319,12 @@
     <div class="product-img">
       <div class="slider-track" data-index="0">
         <img src="images/lamparaomino.jpg" alt="Lámpara Omino vista 1">
-        <img src="images/lamparaomino2.jpg" alt="Lámpara Omino vista 2">
-        <img src="images/lamparaomino3.jpg" alt="Lámpara Omino vista 3">
       </div>
-      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
-      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
       <div class="product-badge">NUEVO</div>
       <div class="cat-tag">Hogar</div>
     </div>
     <div class="product-info">
-      <h3>Lámpara Omino</h3>
+      <h3 onclick="openSpecs('Lámpara Omino')">Lámpara Omino ℹ️</h3>
       <p>Impresión en una sola pieza</p>
       <div class="product-footer">
         <span class="price">$12.500</span>
@@ -288,18 +337,12 @@
     <div class="product-img">
       <div class="slider-track" data-index="0">
         <img src="images/macetajaponesa.jpg" alt="Maceta Japonesa vista 1">
-        <img src="images/macetajaponesa2.jpg" alt="Maceta Japonesa vista 2">
-        <img src="images/macetajaponesa3.jpg" alt="Maceta Japonesa vista 3">
       </div>
-      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
-      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
-      <div class="product-badge">NUEVO</div>
-      <div class="cat-tag">Hogar</div>
       <div class="product-badge">NUEVO</div>
       <div class="cat-tag">Hogar</div>
     </div>
     <div class="product-info">
-      <h3>Maceta Japonesa</h3>
+      <h3 onclick="openSpecs('Maceta Japonesa')">Maceta Japonesa ℹ️</h3>
       <p>PLA, varios colores disponibles</p>
       <div class="product-footer">
         <span class="price">$3.500</span>
@@ -312,16 +355,12 @@
     <div class="product-img">
       <div class="slider-track" data-index="0">
         <img src="images/cristoredentor.jpg" alt="Cristo Redentor vista 1">
-        <img src="images/cristoredentor2.jpg" alt="Cristo Redentor vista 2">
-        <img src="images/cristoredentor3.jpg" alt="Cristo Redentor vista 3">
       </div>
-      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
-      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
       <div class="product-badge">NUEVO</div>
       <div class="cat-tag">Hogar</div>
     </div>
     <div class="product-info">
-      <h3>Cristo Redentor</h3>
+      <h3 onclick="openSpecs('Cristo Redentor')">Cristo Redentor ℹ️</h3>
       <p>PLA, varios colores disponibles</p>
       <div class="product-footer">
         <span class="price">$3.500</span>
@@ -332,21 +371,27 @@
 
   <div class="product-card" data-cat="gaming">
     <div class="product-img">🕹️<div class="product-badge">TOP</div><div class="cat-tag">Gaming</div></div>
-    <div class="product-info"><h3>Soporte para joystick</h3><p>Compatible con PS5 y Xbox</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Soporte joystick')">Soporte para joystick ℹ️</h3>
+      <p>Compatible con PS5 y Xbox</p>
       <div class="product-footer"><span class="price">$4.200</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Soporte%20joystick" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="gaming">
     <div class="product-img">🎮<div class="cat-tag">Gaming</div></div>
-    <div class="product-info"><h3>Porta auriculares</h3><p>Soporte de escritorio resistente PETG</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Porta auriculares')">Porta auriculares ℹ️</h3>
+      <p>Soporte de escritorio resistente PETG</p>
       <div class="product-footer"><span class="price">$3.800</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Porta%20auriculares" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="gaming">
     <div class="product-img">🖥️<div class="cat-tag">Gaming</div></div>
-    <div class="product-info"><h3>Soporte monitor</h3><p>Elevador ergonómico con cable manager</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Soporte monitor')">Soporte monitor ℹ️</h3>
+      <p>Elevador ergonómico con cable manager</p>
       <div class="product-footer"><span class="price">$5.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Soporte%20monitor" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
@@ -359,7 +404,7 @@
         <div class="cat-tag">Figuras</div>
       </div>
       <div class="product-info">
-        <h3>Perezoso Tejido</h3>
+        <h3 onclick="openSpecs('Perezoso Tejido')">Perezoso Tejido ℹ️</h3>
         <p>Organizador de escritorio PETG</p>
         <div class="product-footer">
           <span class="price">$2.800</span>
@@ -370,49 +415,63 @@
 
   <div class="product-card" data-cat="figuras">
     <div class="product-img">🦁<div class="cat-tag">Figuras</div></div>
-    <div class="product-info"><h3>Animal articulado</h3><p>León, tigre o oso, a elección</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Animal articulado')">Animal articulado ℹ️</h3>
+      <p>León, tigre o oso, a elección</p>
       <div class="product-footer"><span class="price">$6.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Animal%20articulado" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="figuras">
     <div class="product-img">🧙<div class="cat-tag">Figuras</div></div>
-    <div class="product-info"><h3>Miniatura personalizada</h3><p>Figura de rol o colección a pedido</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Miniatura personalizada')">Miniatura personalizada ℹ️</h3>
+      <p>Figura de rol o colección a pedido</p>
       <div class="product-footer"><span class="price">$8.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Miniatura%20personalizada" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="industria">
     <div class="product-img">⚙️<div class="cat-tag">Industria</div></div>
-    <div class="product-info"><h3>Repuesto a medida</h3><p>Enviá el modelo o medidas, lo imprimimos</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Repuesto a medida')">Repuesto a medida ℹ️</h3>
+      <p>Enviá el modelo o medidas, lo imprimimos</p>
       <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20repuesto%20a%20medida" target="_blank" class="btn-add">Consultar</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="industria">
     <div class="product-img">🔩<div class="cat-tag">Industria</div></div>
-    <div class="product-info"><h3>Prototipo funcional</h3><p>PETG o ABS, alta resistencia</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Prototipo funcional')">Prototipo funcional ℹ️</h3>
+      <p>PETG o ABS, alta resistencia</p>
       <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20prototipo%20funcional" target="_blank" class="btn-add">Consultar</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="regalos">
     <div class="product-img">🎁<div class="product-badge">NUEVO</div><div class="cat-tag">Regalos</div></div>
-    <div class="product-info"><h3>Llavero personalizado</h3><p>Con nombre o figura a elección</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Llavero personalizado')">Llavero personalizado ℹ️</h3>
+      <p>Con nombre o figura a elección</p>
       <div class="product-footer"><span class="price">$1.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Llavero%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="regalos">
     <div class="product-img">💝<div class="cat-tag">Regalos</div></div>
-    <div class="product-info"><h3>Caja regalo 3D</h3><p>Diseño único con tapa a presión</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Caja regalo 3D')">Caja regalo 3D ℹ️</h3>
+      <p>Diseño único con tapa a presión</p>
       <div class="product-footer"><span class="price">$2.200</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Caja%20regalo%203D" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
 
   <div class="product-card" data-cat="regalos">
     <div class="product-img">🏆<div class="cat-tag">Regalos</div></div>
-    <div class="product-info"><h3>Trofeo personalizado</h3><p>Con nombre y texto grabado</p>
+    <div class="product-info">
+      <h3 onclick="openSpecs('Trofeo personalizado')">Trofeo personalizado ℹ️</h3>
+      <p>Con nombre y texto grabado</p>
       <div class="product-footer"><span class="price">$5.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Trofeo%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
     </div>
   </div>
@@ -481,6 +540,60 @@
 </footer>
 
 <script>
+// Base de datos de especificaciones
+const productSpecs = {
+  "Lámpara luna": { tamaño: "15cm diámetro", material: "PLA Premium", tiempo: "14 horas", detalle: "Textura lunar real basada en mapas de la NASA." },
+  "Lámpara Omino": { tamaño: "20cm x 12cm", material: "PLA + Electrónica", tiempo: "18 horas", detalle: "Lámpara de diseño minimalista con luz cálida." },
+  "Maceta Japonesa": { tamaño: "10cm x 10cm", material: "PLA Biodegradable", tiempo: "6 horas", detalle: "Ideal para suculentas, incluye drenaje interno." },
+  "Cristo Redentor": { tamaño: "18cm alto", material: "PLA Mármol", tiempo: "10 horas", detalle: "Réplica detallada ideal para decoración." },
+  "Soporte joystick": { tamaño: "Estándar", material: "PETG Resistente", tiempo: "4 horas", detalle: "Base estable para mandos de consola." },
+  "Porta auriculares": { tamaño: "Universal", material: "PLA+", tiempo: "7 horas", detalle: "Diseño ergonómico para proteger la vincha." },
+  "Soporte monitor": { tamaño: "Adaptable", material: "PETG Industrial", tiempo: "15 horas", detalle: "Resiste hasta 10kg de peso." },
+  "Perezoso Tejido": { tamaño: "8cm x 8cm", material: "PLA Sedoso", tiempo: "5 horas", detalle: "Figura decorativa con textura de tejido." },
+  "Animal articulado": { tamaño: "12cm largo", material: "PLA+", tiempo: "8 horas", detalle: "Articulaciones móviles impresas en una pieza." },
+  "Miniatura personalizada": { tamaño: "32mm / 75mm", material: "Resina o PLA", tiempo: "Varios", detalle: "Nivel de detalle extremo para coleccionismo." },
+  "Repuesto a medida": { tamaño: "A pedido", material: "ABS / PETG", tiempo: "Varios", detalle: "Piezas funcionales de alta resistencia." },
+  "Prototipo funcional": { tamaño: "A pedido", material: "Técnico", tiempo: "Varios", detalle: "Validación de diseño industrial." },
+  "Llavero personalizado": { tamaño: "5cm aprox", material: "PLA", tiempo: "1 hora", detalle: "Nombres o logos corporativos." },
+  "Caja regalo 3D": { tamaño: "10cm x 10cm", material: "PLA", tiempo: "9 horas", detalle: "Cierre hermético por encastre." },
+  "Trofeo personalizado": { tamaño: "25cm alto", material: "PLA Dorado", tiempo: "16 horas", detalle: "Incluye grabado de nombre y evento." }
+};
+
+function openSpecs(name) {
+  const modal = document.getElementById('productModal');
+  const body = document.getElementById('modalBody');
+  const data = productSpecs[name] || { tamaño: "Personalizado", material: "PLA", tiempo: "A convenir", detalle: "Consultar especificaciones." };
+
+  body.innerHTML = `
+    <div class="modal-details">
+      <h2>${name}</h2>
+      <ul>
+        <li><strong>Tamaño:</strong> <span>${data.tamaño}</span></li>
+        <li><strong>Material:</strong> <span>${data.material}</span></li>
+        <li><strong>Impresión:</strong> <span>${data.tiempo}</span></li>
+      </ul>
+      <p style="margin-top:1.5rem; line-height:1.6; color:#8a7a7c; font-size:0.85rem;">
+        ${data.detalle}
+      </p>
+      <a href="https://wa.me/5491130126909?text=Hola! Quiero más info de: ${name}" 
+         class="btn-primary" 
+         target="_blank"
+         style="width:100%; justify-content:center; margin-top:2rem;">
+         Preguntar por WhatsApp
+      </a>
+    </div>
+  `;
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById('productModal').style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('productModal')) closeModal();
+}
+
 // Función para filtrar categorías
 function filter(cat) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
