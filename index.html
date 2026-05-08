@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mateo 3D Prints | Impresión 3D Profesional</title>
+<meta name="description" content="Productos únicos impresos en 3D. Figuras, decoración, gaming, regalos personalizados. Envíos a todo el país.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Space Grotesk',sans-serif;background:#0d0608;color:#f0eee8;overflow-x:hidden;}
+  :root{
+    --accent:#e8192c;
+    --accent2:#ff6b35;
+    --accent-glow:rgba(232,25,44,0.15);
+    --gray:#1a0c0e;
+    --card:#130a0b;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:#0d0608;}
+  ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:fixed;top:0;width:100%;z-index:100;background:rgba(13,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,25,44,0.15);}
+  .logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;}
+  .logo img{height:42px;width:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,25,44,0.4);}
+  .logo-text{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.5px;}
+  .logo-text span{color:var(--accent);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:#aaa;text-decoration:none;font-size:0.88rem;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--accent);}
+  .btn-nav{background:var(--accent);color:#fff;padding:0.5rem 1.3rem;border-radius:50px;font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;}
+  .btn-nav:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(232,25,44,0.4);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+  .hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 3rem;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(232,25,44,0.09) 0%,transparent 70%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,25,44,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,25,44,0.04) 1px,transparent 1px);background-size:50px 50px;}
+  .hero-logo{width:150px;height:150px;border-radius:50%;border:3px solid rgba(232,25,44,0.45);box-shadow:0 0 50px rgba(232,25,44,0.2);margin:0 auto 1.5rem;overflow:hidden;animation:fadeUp 0.5s ease both;position:relative;z-index:1;}
+  .hero-logo img{width:100%;height:100%;object-fit:cover;}
+  .badge{position:relative;z-index:1;display:inline-block;background:rgba(232,25,44,0.1);border:1px solid rgba(232,25,44,0.35);color:var(--accent);padding:0.35rem 1rem;border-radius:50px;font-size:0.78rem;font-weight:500;margin-bottom:1.5rem;animation:fadeUp 0.5s 0.1s ease both;}
+  .hero h1{position:relative;z-index:1;font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:800;line-height:1.05;max-width:780px;margin-bottom:1.4rem;animation:fadeUp 0.5s 0.15s ease both;}
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero p{position:relative;z-index:1;color:#8a7a7c;font-size:1.08rem;max-width:520px;line-height:1.7;margin-bottom:2.5rem;animation:fadeUp 0.5s 0.2s ease both;}
+  .hero-ctas{position:relative;z-index:1;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.5s 0.25s ease both;}
+  .btn-primary{background:var(--accent);color:#fff;padding:0.8rem 2rem;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,25,44,0.4);}
+  .btn-secondary{border:1px solid rgba(255,255,255,0.2);color:#fff;padding:0.8rem 2rem;border-radius:50px;font-weight:500;font-size:1rem;text-decoration:none;transition:all 0.2s;}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .stats{position:relative;z-index:1;display:flex;justify-content:center;gap:3rem;padding:2rem;flex-wrap:wrap;animation:fadeUp 0.5s 0.3s ease both;}
+  .stat{text-align:center;}
+  .stat strong{display:block;font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
+  .stat span{font-size:0.8rem;color:#6a5a5c;}
+
+  /* SECCIONES */
+  section{padding:5rem 2rem;}
+  .section-label{text-align:center;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:0.8rem;}
+  .section-title{text-align:center;font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;margin-bottom:2.8rem;}
+
+  /* CATEGORÍAS */
+  .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.1rem;max-width:900px;margin:0 auto;}
+  .cat-card{background:var(--card);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:1.4rem;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+  .cat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,25,44,0.06),transparent);opacity:0;transition:opacity 0.25s;}
+  .cat-card:hover{border-color:rgba(232,25,44,0.4);transform:translateY(-4px);}
+  .cat-card:hover::before{opacity:1;}
+  .cat-icon{font-size:2.3rem;margin-bottom:0.7rem;display:block;}
+  .cat-card h3{font-size:0.92rem;font-weight:600;margin-bottom:0.25rem;}
+  .cat-card p{font-size:0.76rem;color:#6a5a5c;}
+
+  /* PRODUCTOS */
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto;}
+  .product-card{background:var(--card);border:1px solid rgba(255,255,255,0.05);border-radius:20px;overflow:hidden;transition:all 0.25s;}
+  .product-card:hover{transform:translateY(-6px);border-color:rgba(232,25,44,0.3);box-shadow:0 20px 40px rgba(0,0,0,0.5);}
+  .product-img{height:180px;position:relative;overflow:hidden;}
+  .product-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+  .product-card:hover .product-img img{transform:scale(1.07);}
+  .product-badge{position:absolute;top:12px;right:12px;background:var(--accent2);color:#fff;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:50px;z-index:2;}
+  .product-info{padding:1.1rem;}
+  .product-info h3{font-size:0.97rem;font-weight:600;margin-bottom:0.3rem;}
+  .product-info p{font-size:0.76rem;color:#6a5a5c;margin-bottom:0.9rem;}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;}
+  .price{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);}
+  .btn-add{background:rgba(232,25,44,0.1);border:1px solid rgba(232,25,44,0.3);color:var(--accent);padding:0.38rem 0.9rem;border-radius:50px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+  .btn-add:hover{background:var(--accent);color:#fff;}
+
+  /* CÓMO FUNCIONA */
+  .how-bg{background:var(--gray);}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:2rem;max-width:900px;margin:0 auto;}
+  .step{text-align:center;position:relative;}
+  .step-num{width:54px;height:54px;border-radius:50%;background:rgba(232,25,44,0.1);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--accent);margin:0 auto 1rem;}
+  .step h3{font-size:0.97rem;font-weight:600;margin-bottom:0.4rem;}
+  .step p{font-size:0.81rem;color:#6a5a5c;line-height:1.6;}
+  .step-arrow{position:absolute;right:-1rem;top:1.2rem;color:rgba(232,25,44,0.4);font-size:1.4rem;}
+
+  /* CTA */
+  .cta-section{background:linear-gradient(135deg,rgba(232,25,44,0.08),rgba(255,107,53,0.05));border-top:1px solid rgba(232,25,44,0.12);border-bottom:1px solid rgba(232,25,44,0.12);text-align:center;padding:5rem 2rem;}
+  .cta-section h2{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;margin-bottom:1rem;}
+  .cta-section p{color:#8a7a7c;margin-bottom:2rem;font-size:1.02rem;}
+
+  /* REDES */
+  .social-section{text-align:center;padding:4rem 2rem;background:var(--card);}
+  .social-links{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-top:1.5rem;}
+  .social-btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.7rem 1.6rem;border-radius:50px;font-weight:600;font-size:0.92rem;text-decoration:none;transition:all 0.2s;border:1px solid;}
+  .social-btn:hover{transform:translateY(-3px);}
+  .btn-ig{background:rgba(225,48,108,0.1);border-color:rgba(225,48,108,0.4);color:#e1306c;}
+  .btn-ig:hover{background:#e1306c;color:#fff;box-shadow:0 6px 20px rgba(225,48,108,0.35);}
+  .btn-fb{background:rgba(24,119,242,0.1);border-color:rgba(24,119,242,0.4);color:#1877f2;}
+  .btn-fb:hover{background:#1877f2;color:#fff;box-shadow:0 6px 20px rgba(24,119,242,0.35);}
+  .btn-wa{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.4);color:#25d366;}
+  .btn-wa:hover{background:#25d366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,0.35);}
+
+  /* WA FLOTANTE */
+  .wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:999;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;transition:all 0.2s;animation:pulse 2.5s infinite;}
+  .wa-float:hover{transform:scale(1.1);}
+  .wa-float svg{width:30px;height:30px;fill:#fff;}
+  @keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5)}50%{box-shadow:0 4px 35px rgba(37,211,102,0.8)}}
+
+  /* FOOTER */
+  footer{background:#080304;padding:1.8rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(232,25,44,0.1);}
+  .footer-left{display:flex;align-items:center;gap:0.6rem;}
+  .footer-left img{height:30px;width:30px;border-radius:50%;object-fit:cover;}
+  .footer-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;color:#fff;}
+  .footer-brand span{color:var(--accent);}
+  footer p{font-size:0.76rem;color:#4a3a3c;}
+  .footer-social{display:flex;gap:1rem;}
+  .footer-social a{font-size:0.76rem;color:#6a5a5c;text-decoration:none;transition:color 0.2s;}
+  .footer-social a:hover{color:var(--accent);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    .hero h1{font-size:2.2rem;}
+    .stats{gap:1.5rem;}
+    .stat strong{font-size:1.5rem;}
+    .step-arrow{display:none;}
+    footer{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- BOTÓN WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491130126909" target="_blank" class="wa-float" title="Escribinos por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="logo">
+    <img src="logo.png" alt="Logo Mateo 3D Prints">
+    <div class="logo-text">MATEO <span>3D PRINTS</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#categorias">Productos</a></li>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/5491130126909" target="_blank" class="btn-nav">💬 Pedir ahora</a>
+  <button class="hamburger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-logo">
+    <img src="logo.png" alt="Mateo 3D Prints">
+  </div>
+  <div class="badge">✦ Impresión 3D profesional · Envíos a todo el país</div>
+  <h1>Objetos únicos, <em>impresos en 3D</em> para vos</h1>
+  <p>Diseños personalizados, figuras, accesorios y mucho más. Mateo 3D Prints los crea capa por capa hasta hacerlos realidad.</p>
+  <div class="hero-ctas">
+    <a href="https://wa.me/5491130126909" target="_blank" class="btn-primary">💬 Pedir por WhatsApp</a>
+    <a href="#catalogo" class="btn-secondary">Ver catálogo</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><strong>+500</strong><span>Productos vendidos</span></div>
+    <div class="stat"><strong>48hs</strong><span>Entrega express</span></div>
+    <div class="stat"><strong>100%</strong><span>Garantía de calidad</span></div>
+    <div class="stat"><strong>PLA/PETG</strong><span>Materiales premium</span></div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section id="categorias">
+  <div class="section-label">Explorar</div>
+  <h2 class="section-title">¿Qué estás buscando?</h2>
+  <div class="categories">
+    <div class="cat-card"><span class="cat-icon">🏠</span><h3>Hogar & Deco</h3><p>Porta objetos, lámparas, macetas</p></div>
+    <div class="cat-card"><span class="cat-icon">🎮</span><h3>Gaming</h3><p>Accesorios, soportes, miniaturas</p></div>
+    <div class="cat-card"><span class="cat-icon">🦸</span><h3>Figuras</h3><p>Personajes, coleccionables, arte</p></div>
+    <div class="cat-card"><span class="cat-icon">⚙️</span><h3>Industria</h3><p>Repuestos, piezas, prototipos</p></div>
+    <div class="cat-card"><span class="cat-icon">🎁</span><h3>Regalos</h3><p>Personalizados y únicos</p></div>
+  </div>
+</section>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Space Grotesk',sans-serif;background:#0d0608;color:#f0eee8;}
+  :root{--accent:#e8192c;--accent2:#ff6b35;--gray:#1a0c0e;--card:#130a0b;}
+
+  .section-label{text-align:center;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:.8rem;}
+  .section-title{text-align:center;font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;margin-bottom:2rem;}
+
+  /* FILTROS */
+  .filters{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+  .filter-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.2rem;border-radius:50px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;}
+  .filter-btn:hover{border-color:rgba(232,25,44,.4);color:#fff;}
+  .filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(232,25,44,.35);}
+  .filter-btn span{font-size:1rem;}
+
+  /* GRID */
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.4rem;max-width:1000px;margin:0 auto;}
+  .product-card{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:20px;overflow:hidden;transition:all .25s;animation:fadeIn .3s ease both;}
+  .product-card.hidden{display:none;}
+  .product-card:hover{transform:translateY(-6px);border-color:rgba(232,25,44,.3);box-shadow:0 20px 40px rgba(0,0,0,.5);}
+  .product-img{height:170px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;background:linear-gradient(135deg,#1a0608,#0d0a14);}
+  .product-badge{position:absolute;top:10px;right:10px;background:var(--accent2);color:#fff;font-size:.65rem;font-weight:700;padding:2px 9px;border-radius:50px;}
+  .cat-tag{position:absolute;bottom:8px;left:10px;background:rgba(0,0,0,.6);color:#aaa;font-size:.62rem;font-weight:600;padding:2px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:1px;}
+  .product-info{padding:1.1rem;}
+  .product-info h3{font-size:.95rem;font-weight:600;margin-bottom:.25rem;}
+  .product-info p{font-size:.75rem;color:#6a5a5c;margin-bottom:.9rem;}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;}
+  .price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);}
+  .btn-add{background:rgba(232,25,44,.1);border:1px solid rgba(232,25,44,.3);color:var(--accent);padding:.35rem .85rem;border-radius:50px;font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
+  .btn-add:hover{background:var(--accent);color:#fff;}
+
+  .no-results{text-align:center;color:#6a5a5c;padding:3rem;display:none;grid-column:1/-1;}
+  .no-results.show{display:block;}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body style="padding:3rem 1.5rem;">
+
+<div class="section-label">Catálogo</div>
+<h2 class="section-title">Todos los productos</h2>
+
+<!-- FILTROS -->
+<div class="filters">
+  <button class="filter-btn active" onclick="filter('todos')"><span>🔥</span> Todos</button>
+  <button class="filter-btn" onclick="filter('hogar')"><span>🏠</span> Hogar & Deco</button>
+  <button class="filter-btn" onclick="filter('gaming')"><span>🎮</span> Gaming</button>
+  <button class="filter-btn" onclick="filter('figuras')"><span>🦸</span> Figuras</button>
+  <button class="filter-btn" onclick="filter('industria')"><span>⚙️</span> Industria</button>
+  <button class="filter-btn" onclick="filter('regalos')"><span>🎁</span> Regalos</button>
+</div>
+
+<!-- GRID DE PRODUCTOS -->
+<div class="products-grid" id="grid">
+
+  <!-- HOGAR & DECO -->
+  <div class="product-card"data-cat="hogar">
+      <div class="product-img">
+        <img src="images/lamparaluna.jpg" alt="Lámpara luna impresa en 3D">
+        <div class="product-badge">OFERTA</div>
+      </div>
+      <div class="product-info">
+        <h3>Lámpara luna</h3>
+        <p>Con LED incluido, efecto 3D</p>
+        <div class="product-footer">
+          <span class="price">$9.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20la%20L%C3%A1mpara%20luna" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
+
+  <div class="product-card"data-cat="hogar">
+      <div class="product-img">
+        <img src="images/lamparaomino.jpg" alt="Lámpara Omino impresa en 3D">
+        <div class="product-badge">NUEVO</div>
+      </div>
+      <div class="product-info"data-cat="hogar">
+        <h3>Lámpara Omino</h3>
+        <p>Impresión en una sola pieza</p>
+        <div class="product-footer">
+          <span class="price">$12.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20la%20L%C3%A1mpara%20Omino" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
+  
+<div class="product-card" data-cat="hogar">
+  <div class="product-img">
+    <img src="images/macetajaponesa.jpg" alt="Maceta Japonesa impresa en 3D">
+    <div class="product-badge">NUEVO</div>
+    <div class="cat-tag">Hogar</div> </div>
+  <div class="product-info">
+    <h3>Maceta Japonesa</h3>
+    <p>PLA, varios colores disponibles</p>
+    <div class="product-footer">
+      <span class="price">$3.500</span>
+      <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20la%20Maceta%20Japonesa" target="_blank" class="btn-add">Pedir</a>
+    </div>
+  </div>
+</div>
+
+<div class="product-card" data-cat="hogar">
+  <div class="product-img">
+    <img src="images/cristoredentor.jpg" alt="Cristo Redentor impreso en 3D">
+    <div class="product-badge">NUEVO</div>
+    <div class="cat-tag">Hogar</div> </div>
+  <div class="product-info">
+    <h3>Cristo Redentor</h3>
+    <p>PLA, varios colores disponibles</p>
+    <div class="product-footer">
+      <span class="price">$3.500</span>
+      <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Cristo%20Redentor" target="_blank" class="btn-add">Pedir</a>
+    </div>
+  </div>
+</div>
+
+
+  <!-- GAMING -->
+  <div class="product-card" data-cat="gaming">
+    <div class="product-img">🕹️<div class="product-badge">TOP</div><div class="cat-tag">Gaming</div></div>
+    <div class="product-info"><h3>Soporte para joystick</h3><p>Compatible con PS5 y Xbox</p>
+      <div class="product-footer"><span class="price">$4.200</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Soporte%20joystick" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="gaming">
+    <div class="product-img">🎮<div class="cat-tag">Gaming</div></div>
+    <div class="product-info"><h3>Porta auriculares</h3><p>Soporte de escritorio resistente PETG</p>
+      <div class="product-footer"><span class="price">$3.800</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Porta%20auriculares" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="gaming">
+    <div class="product-img">🖥️<div class="cat-tag">Gaming</div></div>
+    <div class="product-info"><h3>Soporte monitor</h3><p>Elevador ergonómico con cable manager</p>
+      <div class="product-footer"><span class="price">$5.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20el%20Soporte%20monitor" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <!-- FIGURAS -->
+  <div class="product-card">
+      <div class="product-img">
+        <img src="images/perezosotejido.jpg" alt="Perezoso Tejido impreso en 3D">
+      </div>
+      <div class="product-info">
+        <h3>Perezoso Tejido</h3>
+        <p>Organizador de escritorio PETG</p>
+        <div class="product-footer">
+          <span class="price">$2.800</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Perezoso%20Tejido" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
+
+  <div class="product-card" data-cat="figuras">
+    <div class="product-img">🦁<div class="cat-tag">Figuras</div></div>
+    <div class="product-info"><h3>Animal articulado</h3><p>León, tigre o oso, a elección</p>
+      <div class="product-footer"><span class="price">$6.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Animal%20articulado" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="figuras">
+    <div class="product-img">🧙<div class="cat-tag">Figuras</div></div>
+    <div class="product-info"><h3>Miniatura personalizada</h3><p>Figura de rol o colección a pedido</p>
+      <div class="product-footer"><span class="price">$8.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Miniatura%20personalizada" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <!-- INDUSTRIA -->
+  <div class="product-card" data-cat="industria">
+    <div class="product-img">⚙️<div class="cat-tag">Industria</div></div>
+    <div class="product-info"><h3>Repuesto a medida</h3><p>Enviá el modelo o medidas, lo imprimimos</p>
+      <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20repuesto%20a%20medida" target="_blank" class="btn-add">Consultar</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="industria">
+    <div class="product-img">🔩<div class="cat-tag">Industria</div></div>
+    <div class="product-info"><h3>Prototipo funcional</h3><p>PETG o ABS, alta resistencia</p>
+      <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20prototipo%20funcional" target="_blank" class="btn-add">Consultar</a></div>
+    </div>
+  </div>
+
+  <!-- REGALOS -->
+  <div class="product-card" data-cat="regalos">
+    <div class="product-img">🎁<div class="product-badge">NUEVO</div><div class="cat-tag">Regalos</div></div>
+    <div class="product-info"><h3>Llavero personalizado</h3><p>Con nombre o figura a elección</p>
+      <div class="product-footer"><span class="price">$1.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Llavero%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="regalos">
+    <div class="product-img">💝<div class="cat-tag">Regalos</div></div>
+    <div class="product-info"><h3>Caja regalo 3D</h3><p>Diseño único con tapa a presión</p>
+      <div class="product-footer"><span class="price">$2.200</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Caja%20regalo%203D" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="regalos">
+    <div class="product-img">🏆<div class="cat-tag">Regalos</div></div>
+    <div class="product-info"><h3>Trofeo personalizado</h3><p>Con nombre y texto grabado</p>
+      <div class="product-footer"><span class="price">$5.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Trofeo%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
+    </div>
+  </div>
+
+  <div class="no-results" id="noResults">😕 No hay productos en esta categoría todavía.<br><small style="color:#4a3a3c">Consultanos por WhatsApp para pedidos personalizados.</small></div>
+</div>
+
+<script>
+function filter(cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.closest('.filter-btn').classList.add('active');
+
+  const cards = document.querySelectorAll('.product-card');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = cat === 'todos' || c.dataset.cat === cat;
+    c.classList.toggle('hidden', !show);
+    if(show) visible++;
+  });
+  document.getElementById('noResults').classList.toggle('show', visible === 0);
+}
+</script>
+</body>
+</html>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="section-label">Proceso</div>
+  <h2 class="section-title">¿Cómo funciona?</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Elegís tu producto</h3>
+      <p>Navegá el catálogo o contanos tu idea personalizada</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Confirmamos el pedido</h3>
+      <p>Te enviamos presupuesto y elegís material y color</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Imprimimos</h3>
+      <p>Producción capa por capa con control de calidad</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Lo recibís en casa</h3>
+      <p>Envío a todo el país, seguro y embalado</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>¿Tenés una idea en mente?</h2>
+  <p>Mandanos tu diseño o contanos lo que necesitás — Mateo lo hace realidad</p>
+  <a href="https://wa.me/5493011236909?text=Hola%20Mateo!%20Quiero%20hacer%20un%20pedido%20personalizado" target="_blank" class="btn-primary" style="font-size:1.05rem;padding:0.9rem 2.3rem;">💬 Escribir por WhatsApp →</a>
+</section>
+
+<!-- REDES SOCIALES -->
+<section class="social-section" id="contacto">
+  <div class="section-label">Seguinos</div>
+  <h2 class="section-title">Encontranos en redes</h2>
+  <div class="social-links">
+    <a href="https://instagram.com/mateledes06" target="_blank" class="social-btn btn-ig">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @mateledes06
+    </a>
+    <a href="https://facebook.com/Mateo.ledesma" target="_blank" class="social-btn btn-fb">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Mateo Ledesma
+    </a>
+    <a href="https://wa.me/5493011236909" target="_blank" class="social-btn btn-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      +54 9 11 3012-6909
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Logo Mateo 3D Prints">
+    <div class="footer-brand">MATEO <span>3D PRINTS</span></div>
+  </div>
+  <p>© 2025 Mateo 3D Prints · Hecho con 🧡 en Argentina</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/mateledes06" target="_blank">Instagram</a>
+    <a href="https://facebook.com/Mateo.ledesma" target="_blank">Facebook</a>
+    <a href="https://wa.me/5491130126909" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+</body>
+</html>
