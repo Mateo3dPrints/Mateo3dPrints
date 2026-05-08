@@ -202,27 +202,6 @@
   .no-results{text-align:center;color:#6a5a5c;padding:3rem;display:none;grid-column:1/-1;}
   .no-results.show{display:block;}
 
-  /* DISASSEMBLY SCROLL */
-  .disassembly-section{position:relative;background:#0d0608;overflow:hidden;}
-  .disassembly-scroll{height:350vh;}
-  .disassembly-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
-  .dis-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:.8rem;text-align:center;}
-  .dis-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;text-align:center;margin-bottom:2.5rem;color:#f0eee8;}
-  .dis-title em{font-style:normal;color:var(--accent);}
-  .dis-stage{position:relative;width:300px;height:300px;margin:0 auto;}
-  .dis-piece{position:absolute;width:88px;height:88px;border-radius:14px;border:1px solid rgba(232,25,44,0.2);background:rgba(19,10,11,0.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:box-shadow 0.3s;}
-  .dis-piece.active{box-shadow:0 0 20px rgba(232,25,44,0.25);border-color:rgba(232,25,44,0.5);}
-  .dis-piece-icon{font-size:2.2rem;line-height:1;}
-  .dis-piece-name{font-size:.58rem;color:#e8192c;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0;transition:opacity 0.3s;text-align:center;}
-  .dis-center-glow{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(232,25,44,0.07),transparent 70%);pointer-events:none;}
-  .dis-step-info{margin-top:1.8rem;text-align:center;min-height:52px;}
-  .dis-step-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:#f0eee8;margin-bottom:.3rem;}
-  .dis-step-desc{font-size:.82rem;color:#6a5a5c;}
-  .dis-progress{width:150px;height:3px;background:rgba(255,255,255,0.07);border-radius:3px;margin:1.2rem auto 0;}
-  .dis-progress-fill{height:100%;background:var(--accent);border-radius:3px;width:0%;}
-  .dis-scroll-hint{margin-top:1rem;font-size:.73rem;color:#3a2a2c;animation:hintPulse 2s infinite;}
-  @keyframes hintPulse{0%,100%{opacity:.3}50%{opacity:1}}
-
   /* RESPONSIVE */
   @media(max-width:768px){
     nav{padding:1rem 1.5rem;}
@@ -286,45 +265,6 @@
     <div class="stat"><strong>PLA/PETG</strong><span>Materiales premium</span></div>
   </div>
 </section>
-
-<!-- SECCIÓN SCROLL DISASSEMBLY -->
-<div class="disassembly-section" id="dis-wrapper">
-  <div class="disassembly-scroll">
-    <div class="disassembly-sticky">
-      <div class="dis-label">Tecnología</div>
-      <h2 class="dis-title">Cada producto, <em>pieza por pieza</em></h2>
-      <div class="dis-stage" id="dis-stage">
-        <div class="dis-center-glow"></div>
-        <div class="dis-piece" id="dis-top" style="top:10px;left:106px;">
-          <span class="dis-piece-icon">🌙</span>
-          <span class="dis-piece-name">Cúpula</span>
-        </div>
-        <div class="dis-piece" id="dis-left" style="top:106px;left:10px;">
-          <span class="dis-piece-icon">💡</span>
-          <span class="dis-piece-name">LED</span>
-        </div>
-        <div class="dis-piece" id="dis-center" style="top:106px;left:106px;">
-          <span class="dis-piece-icon">⚙️</span>
-          <span class="dis-piece-name">Base</span>
-        </div>
-        <div class="dis-piece" id="dis-right" style="top:106px;left:202px;">
-          <span class="dis-piece-icon">🔌</span>
-          <span class="dis-piece-name">USB</span>
-        </div>
-        <div class="dis-piece" id="dis-bot" style="top:202px;left:106px;">
-          <span class="dis-piece-icon">🪛</span>
-          <span class="dis-piece-name">Soporte</span>
-        </div>
-      </div>
-      <div class="dis-step-info">
-        <div class="dis-step-name" id="dis-step-name">Producto terminado</div>
-        <div class="dis-step-desc" id="dis-step-desc">Scrolleá para ver cómo se arma</div>
-      </div>
-      <div class="dis-progress"><div class="dis-progress-fill" id="dis-prog"></div></div>
-      <div class="dis-scroll-hint">↓ Seguí bajando</div>
-    </div>
-  </div>
-</div>
 
 <section id="categorias">
   <div class="section-label">Explorar</div>
@@ -739,60 +679,6 @@ function moveSlider(button, direction) {
   track.dataset.index = index;
   track.style.transform = `translateX(-${index * 100}%)`;
 }
-
-// === SCROLL DISASSEMBLY ===
-(function() {
-  const wrapper = document.getElementById('dis-wrapper');
-  if (!wrapper) return;
-  const pieces = {
-    top:    { el: document.getElementById('dis-top'),    ox:106, oy:10,  tx:106, ty:-160 },
-    left:   { el: document.getElementById('dis-left'),   ox:10,  oy:106, tx:-170,ty:106  },
-    center: { el: document.getElementById('dis-center'), ox:106, oy:106, tx:106, ty:106  },
-    right:  { el: document.getElementById('dis-right'),  ox:202, oy:106, tx:370, ty:106  },
-    bot:    { el: document.getElementById('dis-bot'),    ox:106, oy:202, tx:106, ty:370  },
-  };
-  const steps = [
-    { name:'Producto terminado',       desc:'Scrolleá para ver cómo se arma' },
-    { name:'Separando componentes...', desc:'Cada pieza tiene su función' },
-    { name:'Impresión 3D + electrónica', desc:'PLA premium + LED integrado' },
-    { name:'Todo parte del proceso',   desc:'Capa por capa, pieza por pieza' },
-  ];
-  const stepName = document.getElementById('dis-step-name');
-  const stepDesc = document.getElementById('dis-step-desc');
-  const progFill = document.getElementById('dis-prog');
-
-  function update() {
-    const rect    = wrapper.getBoundingClientRect();
-    const scrollH = wrapper.scrollHeight - wrapper.clientHeight;
-    const scrolled = Math.max(0, -rect.top);
-    const p = Math.min(scrolled / (scrollH * 0.8), 1);
-    progFill.style.width = (p * 100) + '%';
-    const si = Math.min(Math.floor(p * steps.length), steps.length - 1);
-    stepName.textContent = steps[si].name;
-    stepDesc.textContent = steps[si].desc;
-    Object.entries(pieces).forEach(([key, { el, ox, oy, tx, ty }]) => {
-      if (key === 'center') {
-        const s = 1 - p * 0.25;
-        el.style.transform = `scale(${s}) rotate(${p * 180}deg)`;
-        el.style.opacity   = String(1 - p * 0.5);
-        el.style.left = ox + 'px'; el.style.top = oy + 'px';
-        el.classList.toggle('active', p > 0.3);
-      } else {
-        const cx  = ox + (tx - ox) * p;
-        const cy  = oy + (ty - oy) * p;
-        const rot = (tx < ox ? -1 : 1) * p * 30;
-        el.style.left = cx + 'px'; el.style.top = cy + 'px';
-        el.style.transform = `rotate(${rot}deg)`;
-        el.style.opacity = String(0.4 + p * 0.6);
-        el.classList.toggle('active', p > 0.5);
-        const lbl = el.querySelector('.dis-piece-name');
-        if (lbl) lbl.style.opacity = p > 0.4 ? String((p - 0.4) * 1.7) : '0';
-      }
-    });
-  }
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
 
 // Movimiento automático cada 6 segundos
 setInterval(() => {
