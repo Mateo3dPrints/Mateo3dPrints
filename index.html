@@ -267,20 +267,28 @@
 <div class="products-grid" id="grid">
 
   <!-- HOGAR & DECO -->
-  <div class="product-card"data-cat="hogar">
-      <div class="product-img">
-        <img src="images/lamparaluna.jpg" alt="Lámpara luna impresa en 3D">
-        <div class="product-badge">OFERTA</div>
-      </div>
-      <div class="product-info">
-        <h3>Lámpara luna</h3>
-        <p>Con LED incluido, efecto 3D</p>
-        <div class="product-footer">
-          <span class="price">$9.500</span>
-          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20la%20L%C3%A1mpara%20luna" target="_blank" class="btn-add">Pedir</a>
-        </div>
-      </div>
+  <div class="product-card" data-cat="hogar">
+  <div class="product-img slider-container">
+    <div class="slider-track">
+      <img src="images/lamparaluna.jpg" alt="Lámpara luna vista 1">
+      <img src="images/lamparaluna2.jpg" alt="Lámpara luna vista 2">
+      <img src="images/lamparaluna3.jpg" alt="Lámpara luna vista 3">
     </div>
+    
+    <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
+    <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
+    
+    <div class="product-badge">OFERTA</div>
+  </div>
+  <div class="product-info">
+    <h3>Lámpara luna</h3>
+    <p>Con LED incluido, efecto 3D</p>
+    <div class="product-footer">
+      <span class="price">$9.500</span>
+      <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20la%20L%C3%A1mpara%20luna" target="_blank" class="btn-add">Pedir</a>
+    </div>
+  </div>
+</div>
 
   <div class="product-card"data-cat="hogar">
       <div class="product-img">
@@ -302,7 +310,7 @@
     <img src="images/macetajaponesa.jpg" alt="Maceta Japonesa impresa en 3D">
     <div class="product-badge">NUEVO</div>
     <div class="cat-tag">Hogar</div> </div>
-  <div class="product-info">
+  <div class="product-info">data-cat="hogar">
     <h3>Maceta Japonesa</h3>
     <p>PLA, varios colores disponibles</p>
     <div class="product-footer">
@@ -317,7 +325,7 @@
     <img src="images/cristoredentor.jpg" alt="Cristo Redentor impreso en 3D">
     <div class="product-badge">NUEVO</div>
     <div class="cat-tag">Hogar</div> </div>
-  <div class="product-info">
+  <div class="product-info">data-cat="hogar">
     <h3>Cristo Redentor</h3>
     <p>PLA, varios colores disponibles</p>
     <div class="product-footer">
