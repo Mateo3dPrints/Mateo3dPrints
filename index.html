@@ -19,23 +19,23 @@
     --card:#130a0b;
   }
 
-  /* NUEVO: BANNER SUPERIOR ANIMADO */
-  .top-banner {
+  /* BANNER SUPERIOR ANIMADO */
+  .announcement-bar {
     background: linear-gradient(90deg, #e8192c, #ff6b35, #e8192c);
     background-size: 200% auto;
     color: white;
     text-align: center;
-    padding: 7px 0;
-    font-size: 0.8rem;
-    font-weight: 700;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1100;
-    animation: gradientMove 4s linear infinite;
+    z-index: 1001;
+    animation: gradientMove 3s linear infinite;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
   }
+
   @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
@@ -46,8 +46,8 @@
   ::-webkit-scrollbar-track{background:#0d0608;}
   ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-  /* NAV */
-  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:fixed;top:0;width:100%;z-index:100;background:rgba(13,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,25,44,0.15);}
+  /* NAV (Ajustado para el banner) */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:fixed;top:35px;width:100%;z-index:100;background:rgba(13,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,25,44,0.15);}
   .logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;}
   .logo img{height:42px;width:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,25,44,0.4);}
   .logo-text{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.5px;}
@@ -354,16 +354,15 @@
 </div>
 
 <div class="products-grid" id="grid">
-
   <div class="product-card" data-cat="figuras">
     <div class="product-img">
-      <img src="https://via.placeholder.com/400x400/130a0b/e8192c?text=Proximamente" alt="Próximamente">
+      <img src="https://via.placeholder.com/300x300/130a0b/e8192c?text=Proximamente" alt="Próximamente">
       <div class="upcoming-overlay">
         <span style="font-weight: 800; letter-spacing: 2px;">PRÓXIMAMENTE</span>
         <div class="countdown-box" id="timer">
-          <div class="countdown-item"><span class="countdown-val" id="days">00</span><span class="countdown-label">días</span></div>
-          <div class="countdown-item"><span class="countdown-val" id="hours">00</span><span class="countdown-label">hs</span></div>
-          <div class="countdown-item"><span class="countdown-val" id="mins">00</span><span class="countdown-label">min</span></div>
+          <div class="countdown-item"><span class="countdown-val" id="days">4</span><span class="countdown-label">días</span></div>
+          <div class="countdown-item"><span class="countdown-val" id="hours">23</span><span class="countdown-label">hs</span></div>
+          <div class="countdown-item"><span class="countdown-val" id="mins">59</span><span class="countdown-label">min</span></div>
         </div>
       </div>
     </div>
