@@ -9,13 +9,75 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+
+  /* Agregamos padding-top al body para que el banner no tape el nav */
   body{font-family:'Space Grotesk',sans-serif;background:#0d0608;color:#f0eee8;overflow-x:hidden;}
   :root{
+
+  body{
+  font-family:'Space Grotesk',sans-serif;
+  background:#000000;
+  color:#f0eee8;
+  overflow-x:hidden;
+  padding-top: 60px; /* Esto empuja todo el contenido hacia abajo */
     --accent:#e8192c;
     --accent2:#ff6b35;
     --accent-glow:rgba(232,25,44,0.15);
     --gray:#1a0c0e;
     --card:#130a0b;
+    
+  }
+
+  /* 1. Estilos para el Banner Superior */
+.top-banner {
+  background: linear-gradient(90deg, #e8192c, #ff6b35, #e8192c);
+  background-size: 200% auto;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1100; /* Por encima de todo */
+  animation: gradientMove 3s linear infinite;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 2. Ajuste del NAV para que no quede tapado */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 3rem;
+  position: fixed;
+  top: 60px; /* <--- ESTO es lo que hace que no se solape con el banner */
+  width: 100%;
+  z-index: 1000;
+  background: rgba(13,6,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232,25,44,0.15);
+  transition: top 0.3s;
+}
+
+/* 3. Ajuste del HERO para compensar el espacio extra arriba */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: calc(6rem + 40px); /* Ajustamos el relleno superior */
+  position: relative;
+  overflow: hidden;
+}
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
   }
 
   /* SCROLLBAR */
@@ -23,8 +85,8 @@
   ::-webkit-scrollbar-track{background:#0d0608;}
   ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-  /* NAV */
-  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:fixed;top:0;width:100%;z-index:100;background:rgba(13,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,25,44,0.15);}
+  /* NAV (Ajustado para el banner) */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;position:fixed;top:35px;width:100%;z-index:100;background:rgba(13,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,25,44,0.15);}
   .logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;}
   .logo img{height:42px;width:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,25,44,0.4);}
   .logo-text{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.5px;}
@@ -38,7 +100,7 @@
   .hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
 
   /* HERO */
-  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(6rem + 80px) 2rem 3rem;position:relative;overflow:hidden;}
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 3rem;position:relative;overflow:hidden;}
   .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(232,25,44,0.09) 0%,transparent 70%);}
   .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,25,44,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,25,44,0.04) 1px,transparent 1px);background-size:50px 50px;}
   .hero-logo{width:150px;height:150px;border-radius:50%;border:3px solid rgba(232,25,44,0.45);box-shadow:0 0 50px rgba(232,25,44,0.2);margin:0 auto 1.5rem;overflow:hidden;animation:fadeUp 0.5s ease both;position:relative;z-index:1;}
@@ -105,6 +167,41 @@
   .price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);}
   .btn-add{background:rgba(232,25,44,.1);border:1px solid rgba(232,25,44,.3);color:var(--accent);padding:.35rem .85rem;border-radius:50px;font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
   .btn-add:hover{background:var(--accent);color:#fff;}
+
+  /* ESTILOS PRÓXIMAMENTE Y CONTADOR */
+  .upcoming-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 6, 8, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    text-align: center;
+    padding: 10px;
+  }
+  .countdown-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .countdown-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .countdown-label {
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    color: #8a7a7c;
+  }
 
   /* MODAL ESTILOS */
   .modal {
@@ -217,6 +314,10 @@
 </head>
 <body>
 
+<div class="top-banner">
+  🚚 Envío gratis a CABA en pedidos +$15.000
+</div>
+
 <div id="productModal" class="modal">
   <div class="modal-content">
     <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -240,7 +341,6 @@
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <a href="https://wa.me/5491130126909" target="_blank" class="btn-nav">💬 Pedir ahora</a>
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Cambiar tema">🌙</button>
   <button class="hamburger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
     <span></span><span></span><span></span>
   </button>
@@ -293,6 +393,27 @@
 </div>
 
 <div class="products-grid" id="grid">
+  <div class="product-card" data-cat="figuras">
+    <div class="product-img">
+      <img src="https://via.placeholder.com/200x200/130a0b/e8192c?text=Proximamente" alt="Próximamente">
+      <div class="upcoming-overlay">
+        <span style="font-weight: 600; letter-spacing: 2px;">PRÓXIMAMENTE</span>
+        <div class="countdown-box" id="timer">
+          <div class="countdown-item"><span class="countdown-val" id="days">4</span><span class="countdown-label">días</span></div>
+          <div class="countdown-item"><span class="countdown-val" id="hours">23</span><span class="countdown-label">hs</span></div>
+          <div class="countdown-item"><span class="countdown-val" id="mins">59</span><span class="countdown-label">min</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="product-info">
+      <h3>Nuevos Articulos</h3>
+      <p>Nuevos Articulos Proximamente</p>
+      <div class="product-footer">
+        <span class="price">---</span>
+        <span class="btn-add" style="opacity: 0.5;">Esperalo</span>
+      </div>
+    </div>
+  </div>
 
   <div class="product-card" data-cat="hogar">
     <div class="product-img">
@@ -391,7 +512,7 @@
   </div>
   <div class="product-info">
     <h3 onclick="openSpecs('Soporte de Celular')">Soporte de Celular </h3>
-    <p>Soporte de Celular resistente PETG</p>
+    <p>Soporte de Celular Minimalista </p>
     <div class="product-footer">
       <span class="price">$7.000</span>
       <a href="https://wa.me/5491130126909?text=Hola Mateo! Me interesa el Soporte de Celular" target="_blank" class="btn-add">Pedir</a>
@@ -407,7 +528,7 @@
   </div>
   <div class="product-info">
     <h3 onclick="openSpecs('Soporte Auriculares')">Soporte Auriculares </h3>
-    <p>Soporte de Audifonos resistente PETG</p>
+    <p>Soporte de Audifonos Minimalista </p>
     <div class="product-footer">
       <span class="price">$6.000</span>
       <a href="https://wa.me/5491130126909?text=Hola Mateo! Me interesa el Soporte Auriculares" target="_blank" class="btn-add">Pedir</a>
@@ -424,7 +545,7 @@
   </div>
   <div class="product-info">
     <h3 onclick="openSpecs('Soporte Control')">Soporte Control </h3>
-    <p>Soporte de Control resistente PETG</p>
+    <p>Soporte de Control Minimalista </p>
     <div class="product-footer">
       <span class="price">$8.000</span>
       <a href="https://wa.me/5491130126909?text=Hola Mateo! Me interesa el Soporte Control" target="_blank" class="btn-add">Pedir</a>
@@ -446,7 +567,7 @@
     </div>
       <div class="product-info">
         <h3 onclick="openSpecs('Perezoso Tejido')">Perezoso Tejido </h3>
-        <p>Organizador de escritorio PETG</p>
+        <p>Perezoso Tejido </p>
         <div class="product-footer">
           <span class="price">$5.600</span>
           <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Perezoso%20Tejido" target="_blank" class="btn-add">Pedir</a>
@@ -455,23 +576,19 @@
     </div>
 
   <div class="product-card" data-cat="figuras">
-  <div class="product-img">
-    <div class="slider-track" data-index="0">
-      <img src="images/animalesarticulados.jpg" alt="León articulado impreso en 3D">
-      <img src="images/animalesarticulados2.jpg" alt="Tigre articulado impreso en 3D">
-      <img src="images/animalesarticulados3.jpg" alt="Oso articulado impreso en 3D">
-    </div>
-    
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/animalesarticulados.jpg" alt="León articulado impreso en 3D">
+        <img src="images/animalesarticulados2.jpg" alt="Tigre articulado impreso en 3D">
+        <img src="images/animalesarticulados3.jpg" alt="Oso articulado impreso en 3D">
+      </div>
     <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
     <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
-    
     <div class="cat-tag">Figuras</div>
   </div>
-
   <div class="product-info">
     <h3 onclick="openSpecs('Animal articulado')">Animal articulado </h3>
     <p>León, tigre o oso, a elección. PLA+ flexible.</p>
-    
     <div class="product-footer">
       <span class="price">$6.000</span>
       <a href="https://wa.me/5491130126909?text=Hola Mateo! Me interesa un Animal articulado" target="_blank" class="btn-add">Pedir</a>
@@ -479,59 +596,103 @@
   </div>
 </div>
 
+<div class="product-card" data-cat="figuras">
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/formulauno.jpg" alt="Formula 1 vista 1">
+        <img src="images/formulauno2.jpg" alt="Formula 1 vista 2">
+        <img src="images/formulauno3.jpg" alt="Formula 1 vista 3">
+      </div>
+    <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
+    <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
+    <div class="product-badge">POPU</div>
+    <div class="cat-tag">Figuras</div>
+  </div>
+  <div class="product-info">
+    <h3 onclick="openSpecs('Formula 1')">Formula 1 </h3>
+    <p>León, tigre o oso, a elección. PLA+ flexible.</p>
+    <div class="product-footer">
+      <span class="price">$9.000</span>
+      <a href="https://wa.me/5491130126909?text=Hola Mateo! Me interesa el Formula 1" target="_blank" class="btn-add">Pedir</a>
+    </div>
+  </div>
+</div>
+
   <div class="product-card" data-cat="figuras">
-    <div class="product-img">🧙<div class="cat-tag">Figuras</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Miniatura personalizada')">Miniatura personalizada </h3>
-      <p>Figura de rol o colección a pedido</p>
-      <div class="product-footer"><span class="price">$8.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Miniatura%20personalizada" target="_blank" class="btn-add">Pedir</a></div>
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/Figurapersonalizada.jpg" alt="Figura Personalizada vista 1">
+      </div>
+      <div class="product-badge">OFERTA</div>
+      <div class="cat-tag">Figuras</div>
     </div>
-  </div>
-
-  <div class="product-card" data-cat="industria">
-    <div class="product-img">⚙️<div class="cat-tag">Industria</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Repuesto a medida')">Repuesto a medida </h3>
-      <p>Enviá el modelo o medidas, lo imprimimos</p>
-      <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20repuesto%20a%20medida" target="_blank" class="btn-add">Consultar</a></div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Figura Personalizada')">Figura Personalizada </h3>
+        <p>Figura personalizada </p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Figura%20Personalizada" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="product-card" data-cat="industria">
-    <div class="product-img">🔩<div class="cat-tag">Industria</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Prototipo funcional')">Prototipo funcional </h3>
-      <p>PETG o ABS, alta resistencia</p>
-      <div class="product-footer"><span class="price">Consultar</span><a href="https://wa.me/5491130126909?text=Hola!%20Necesito%20un%20prototipo%20funcional" target="_blank" class="btn-add">Consultar</a></div>
-    </div>
-  </div>
 
   <div class="product-card" data-cat="regalos">
-    <div class="product-img">🎁<div class="product-badge">NUEVO</div><div class="cat-tag">Regalos</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Llavero personalizado')">Llavero personalizado </h3>
-      <p>Con nombre o figura a elección</p>
-      <div class="product-footer"><span class="price">$1.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Llavero%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/corazon3d.jpg" alt="Corazon 3D vista 1">
+        <img src="images/corazon3d2.jpg" alt="Corazon 3D vista 2">
+        <img src="images/corazon3d3.jpg" alt="Corazon 3D vista 3">
+      </div>
+      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
+      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
+      <div class="product-badge">NUEVO</div>
+      <div class="cat-tag">Regalos</div>
     </div>
-  </div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Corazon 3D')">Corazon 3D </h3>
+        <p>Corazon 3D </p>
+        <div class="product-footer">
+          <span class="price">$4.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Corazon%203D" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
 
   <div class="product-card" data-cat="regalos">
-    <div class="product-img">💝<div class="cat-tag">Regalos</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Caja regalo 3D')">Caja regalo 3D </h3>
-      <p>Diseño único con tapa a presión</p>
-      <div class="product-footer"><span class="price">$2.200</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Caja%20regalo%203D" target="_blank" class="btn-add">Pedir</a></div>
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/Minifoto.jpg" alt="Mini Foto vista 1">
+      </div>
+      <div class="product-badge">NUEVO</div>
+      <div class="cat-tag">Regalos</div>
     </div>
-  </div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Mini Foto')">Mini Foto </h3>
+        <p>MIni Foto Personal </p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Mini%20Foto" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
 
   <div class="product-card" data-cat="regalos">
-    <div class="product-img">🏆<div class="cat-tag">Regalos</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Trofeo personalizado')">Trofeo personalizado </h3>
-      <p>Con nombre y texto grabado</p>
-      <div class="product-footer"><span class="price">$5.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Trofeo%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/llaverocorazon.jpg" alt="Llavero Corazon vista 1">
+      </div>
+      <div class="product-badge">NUEVO</div>
+      <div class="cat-tag">Regalos</div>
     </div>
-  </div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Llavero Corazon')">Llavero Corazon </h3>
+        <p>Llavero Corazon Personal </p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Llavero%20Corazon" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
 
   <div class="no-results" id="noResults">😕 No hay productos en esta categoría todavía.<br><small style="color:#4a3a3c">Consultanos por WhatsApp para pedidos personalizados.</small></div>
 </div>
@@ -651,6 +812,20 @@ window.onclick = function(event) {
   if (event.target == document.getElementById('productModal')) closeModal();
 }
 
+// === TEMA CLARO / OSCURO ===
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+(function(){
+  if(localStorage.getItem('theme') === 'light'){
+    document.body.classList.add('light-mode');
+    const btn = document.getElementById('themeBtn');
+    if(btn) btn.textContent = '☀️';
+  }
+})();
+
 // Función para filtrar categorías
 function filter(cat) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -680,42 +855,6 @@ function moveSlider(button, direction) {
   track.dataset.index = index;
   track.style.transform = `translateX(-${index * 100}%)`;
 }
-
-
-// === TEMA CLARO / OSCURO ===
-function toggleTheme() {
-  const isLight = document.body.classList.toggle('light-mode');
-  document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
-}
-(function(){
-  if(localStorage.getItem('theme') === 'light'){
-    document.body.classList.add('light-mode');
-    const btn = document.getElementById('themeBtn');
-    if(btn) btn.textContent = '☀️';
-  }
-})();
-
-// === CONTADOR PRÓXIMAMENTE ===
-(function(){
-  const target = new Date();
-  target.setDate(target.getDate() + 7);
-  function tick(){
-    const diff = target - new Date();
-    if(diff <= 0) return;
-    const pad = n => String(Math.floor(n)).padStart(2,'0');
-    const d = document.getElementById('days');
-    const h = document.getElementById('hours');
-    const m = document.getElementById('mins');
-    const s = document.getElementById('secs');
-    if(d) d.textContent = pad(diff/86400000);
-    if(h) h.textContent = pad((diff%86400000)/3600000);
-    if(m) m.textContent = pad((diff%3600000)/60000);
-    if(s) s.textContent = pad((diff%60000)/1000);
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
 
 // Movimiento automático cada 6 segundos
 setInterval(() => {
