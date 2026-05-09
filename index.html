@@ -665,14 +665,25 @@ nav {
       </div>
     </div>
 
-  <div class="product-card" data-cat="regalos">
-    <div class="product-img">🏆<div class="cat-tag">Regalos</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Trofeo personalizado')">Trofeo personalizado </h3>
-      <p>Con nombre y texto grabado</p>
-      <div class="product-footer"><span class="price">$5.000</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20un%20Trofeo%20personalizado" target="_blank" class="btn-add">Pedir</a></div>
+  <div class="product-card" data-cat="figuras">
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/llaverocorazon.jpg" alt="Llavero Corazon vista 1">
+      </div>
+      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
+      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
+      <div class="product-badge">OFERTA</div>
+      <div class="cat-tag">Figuras</div>
     </div>
-  </div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Llavero Corazon')">Llavero Corazon </h3>
+        <p>Llavero Corazon Personal </p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Llavero%20Corazon" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
 
   <div class="no-results" id="noResults">😕 No hay productos en esta categoría todavía.<br><small style="color:#4a3a3c">Consultanos por WhatsApp para pedidos personalizados.</small></div>
 </div>
