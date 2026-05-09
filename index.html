@@ -9,32 +9,52 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  /* Agregamos padding-top al body para que el banner no tape el nav */
-  body{font-family:'Space Grotesk',sans-serif;background:#0d0608;color:#f0eee8;overflow-x:hidden;}
-  :root{
-    --accent:#e8192c;
-    --accent2:#ff6b35;
-    --accent-glow:rgba(232,25,44,0.15);
-    --gray:#1a0c0e;
-    --card:#130a0b;
-  }
+  /* 1. Estilos para el Banner Superior */
+.top-banner {
+  background: linear-gradient(90deg, #e8192c, #ff6b35, #e8192c);
+  background-size: 200% auto;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1100; /* Por encima de todo */
+  animation: gradientMove 3s linear infinite;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-  /* BANNER SUPERIOR ANIMADO */
-  .announcement-bar {
-    background: linear-gradient(90deg, #e8192c, #ff6b35, #e8192c);
-    background-size: 200% auto;
-    color: white;
-    text-align: center;
-    padding: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1001;
-    animation: gradientMove 3s linear infinite;
-    letter-spacing: 0.5px;
-  }
+/* 2. Ajuste del NAV para que no quede tapado */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 3rem;
+  position: fixed;
+  top: 40px; /* <--- ESTO es lo que hace que no se solape con el banner */
+  width: 100%;
+  z-index: 1000;
+  background: rgba(13,6,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232,25,44,0.15);
+  transition: top 0.3s;
+}
+
+/* 3. Ajuste del HERO para compensar el espacio extra arriba */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: calc(6rem + 40px); /* Ajustamos el relleno superior */
+  position: relative;
+  overflow: hidden;
+}
 
   @keyframes gradientMove {
     0% { background-position: 0% 50%; }
