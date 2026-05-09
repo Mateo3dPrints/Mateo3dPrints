@@ -100,7 +100,7 @@ nav {
   .hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
 
   /* HERO */
-  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 3rem;position:relative;overflow:hidden;}
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(6rem + 80px) 2rem 3rem;position:relative;overflow:hidden;}
   .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(232,25,44,0.09) 0%,transparent 70%);}
   .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,25,44,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,25,44,0.04) 1px,transparent 1px);background-size:50px 50px;}
   .hero-logo{width:150px;height:150px;border-radius:50%;border:3px solid rgba(232,25,44,0.45);box-shadow:0 0 50px rgba(232,25,44,0.2);margin:0 auto 1.5rem;overflow:hidden;animation:fadeUp 0.5s ease both;position:relative;z-index:1;}
@@ -167,6 +167,21 @@ nav {
   .price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);}
   .btn-add{background:rgba(232,25,44,.1);border:1px solid rgba(232,25,44,.3);color:var(--accent);padding:.35rem .85rem;border-radius:50px;font-size:.76rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
   .btn-add:hover{background:var(--accent);color:#fff;}
+
+
+  /* Tema Oscuro y Blanco */
+body.light-mode{
+  --bg:#f4eeee;
+  --gray:#e8dede;
+  --card:#fff;
+  --text:#1a0608;
+  --text-muted:#5a4040;
+  --text-dim:#7a6060;
+  --nav-bg:rgba(244,238,238,0.96);
+}
+.theme-toggle{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.2s;flex-shrink:0;}
+.theme-toggle:hover{background:rgba(232,25,44,0.2);border-color:var(--accent);transform:scale(1.1);}
+body.light-mode .theme-toggle{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.15);color:#1a0608;}
 
   /* ESTILOS PRÓXIMAMENTE Y CONTADOR */
   .upcoming-overlay {
@@ -815,7 +830,8 @@ window.onclick = function(event) {
 
 // === TEMA CLARO / OSCURO ===
 function toggleTheme() {
-  const isLight = document.body.classList.toggle('light-mode');
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
   document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
