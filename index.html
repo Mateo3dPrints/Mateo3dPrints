@@ -597,13 +597,24 @@ nav {
 </div>
 
   <div class="product-card" data-cat="figuras">
-    <div class="product-img">🧙<div class="cat-tag">Figuras</div></div>
-    <div class="product-info">
-      <h3 onclick="openSpecs('Miniatura personalizada')">Miniatura personalizada </h3>
-      <p>Figura de rol o colección a pedido</p>
-      <div class="product-footer"><span class="price">$8.500</span><a href="https://wa.me/5491130126909?text=Hola!%20Me%20interesa%20una%20Miniatura%20personalizada" target="_blank" class="btn-add">Pedir</a></div>
+    <div class="product-img">
+      <div class="slider-track" data-index="0">
+        <img src="images/Figurapersonalizada.jpg" alt="Figura Personalizada vista 1">
+      </div>
+      <button class="slider-arrow prev" onclick="moveSlider(this, -1)">&#10094;</button>
+      <button class="slider-arrow next" onclick="moveSlider(this, 1)">&#10095;</button>
+      <div class="product-badge">OFERTA</div>
+      <div class="cat-tag">Figuras</div>
     </div>
-  </div>
+      <div class="product-info">
+        <h3 onclick="openSpecs('Figura Personalizada')">Figura Personalizada </h3>
+        <p>Figura personalizada </p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <a href="https://wa.me/5491130126909?text=Hola%20Mateo!%20Me%20interesa%20el%20Figura%20Personalizada" target="_blank" class="btn-add">Pedir</a>
+        </div>
+      </div>
+    </div>
 
   <div class="product-card" data-cat="industria">
     <div class="product-img">⚙️<div class="cat-tag">Industria</div></div>
